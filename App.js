@@ -8,17 +8,7 @@
 
 import React from 'react';
 import type {Node} from 'react';
-import {
-  Alert,
-  Button,
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {Alert, Button, StyleSheet, Text, View} from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import * as Localization from 'expo-localization';
@@ -30,11 +20,6 @@ i18n.translations = {en, zh, es};
 i18n.locale = Localization.locale;
 
 const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
   const onPressLogin = () => {
     Alert.alert(`${i18n.t('signoutBtn')}`, `${i18n.t('signOutAlertMess')}`, [
       {
@@ -48,22 +33,15 @@ const App: () => Node = () => {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View style={styles.container}>
-          <Text>{i18n.t('welcome')}</Text>
-          <Button
-            onPress={onPressLogin}
-            title={i18n.t('signoutBtn')}
-            color="#005792"
-            accessibilityLabel={i18n.t('signoutBtn')}
-          />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <Text>{i18n.t('welcome')}</Text>
+      <Button
+        onPress={onPressLogin}
+        title={i18n.t('signoutBtn')}
+        color="#005792"
+        accessibilityLabel={i18n.t('signoutBtn')}
+      />
+    </View>
   );
 };
 
