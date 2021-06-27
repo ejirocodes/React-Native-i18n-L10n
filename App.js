@@ -9,6 +9,8 @@
 import React from 'react';
 import type {Node} from 'react';
 import {
+  Alert,
+  Button,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -27,29 +29,22 @@ i18n.fallbacks = true;
 i18n.translations = {en, zh, es};
 i18n.locale = Localization.locale;
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
-
 const App: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  };
+  const onPressLogin = () => {
+    Alert.alert(`${i18n.t('signoutBtn')}`, `${i18n.t('signOutAlertMess')}`, [
+      {
+        text: `${i18n.t('signOutAlertTitle')}`,
+        style: 'cancel',
+      },
+      {
+        text: `${i18n.t('confirm')}`,
+      },
+    ]);
   };
 
   return (
@@ -58,13 +53,14 @@ const App: () => Node = () => {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section>
-            <Text>{i18n.t('welcome')}</Text>
-          </Section>
+        <View style={styles.container}>
+          <Text>{i18n.t('welcome')}</Text>
+          <Button
+            onPress={onPressLogin}
+            title={i18n.t('signoutBtn')}
+            color="#005792"
+            accessibilityLabel={i18n.t('signoutBtn')}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -72,21 +68,11 @@ const App: () => Node = () => {
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
