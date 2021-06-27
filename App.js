@@ -18,45 +18,20 @@ import {
   View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import {Asset, Constants, FileSystem} from 'react-native-unimodules';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 import * as Localization from 'expo-localization';
 import i18n from 'i18n-js';
+import {zh, en, es} from './i18n/supportedLanguages';
 
-// Set the key-value pairs for the different languages you want to support.
-i18n.translations = {
-  en: {welcome: 'Hello', name: 'Charlie'},
-  ja: {welcome: 'こんにちは'},
-};
-// Set the locale once at the beginning of your app.
-i18n.locale = 'ja';
-// When a value is missing from a language it'll fallback to another language with the key present.
 i18n.fallbacks = true;
+i18n.translations = {en, zh, es};
+i18n.locale = Localization.locale;
 
 const Section = ({children, title}): Node => {
   const isDarkMode = useColorScheme() === 'dark';
-  console.log(Localization.locale);
 
   return (
     <View style={styles.sectionContainer}>
-      <Text>
-       {i18n.t('welcome')} {i18n.t('name')}
-      </Text>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
       <Text
         style={[
           styles.sectionDescription,
@@ -83,25 +58,13 @@ const App: () => Node = () => {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-        <Header />
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
+          <Section>
+            <Text>{i18n.t('welcome')}</Text>
           </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
         </View>
       </ScrollView>
     </SafeAreaView>
